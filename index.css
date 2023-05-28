@@ -1,0 +1,25 @@
+#name {
+    background-color: rgb(241, 206, 140);
+    text-align: center;
+}
+
+table{
+    padding: 0;
+    text-align: center;
+}
+
+#orange:hover{
+    background-image: linear-gradient(to right, rgb(249, 188, 145),rgba(248, 111, 0, 0.9));
+}
+
+img {
+    width: 100px;
+}
+img:hover{
+    width: 200px;
+}
+
+a:link {color:green} /*未點選過*/
+a:visited {color: red;}/*點選過*/
+a:hover {color: orange;}/*移動到超連結上*/
+a:active{color: blue;}
