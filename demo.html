@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rate</title>
+    <link rel="stylesheet" href="mystyle.css">
+</head>
+<body>
+    <h1>匯率轉換計算機</h1>
+    <hr>
+    <a href="https://rate.bot.com.tw/xrt" target="_blank"><b>台灣銀行牌告匯率</b></a>
+    <br><br>
+    <label>請輸入新台幣</label>
+    <input id="TWD" type="text" placeholder="100" value=""/>
+    <label>元</label>
+    <br><br>
+    <button onclick="loadDoc()">執行計算</button>
+    <table id="rate"></table>
+
+    <script>
+        function loadDoc() {
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onload = function() {
+                myFunction(this);
+            }
+
+            xhttp.open("GET", "./rate.xml");
+            xhttp.send();
+            var TWD = document.getElementById('TWD');
+            if(TWD == null || TWD =="") {
+                msg = "Invalid input";
+                alert(msg);
+            }
+            
+        }
+
+        function myFunction() {
+            var TWD = parseInt(document.getElementById('TWD').value)
+            const xmlDoc = xml.responseXML;
+            const x = xmlDoc.getElementsByTagName("RATE");
+            var USD = parseInt(x.getElementsByTagName("USD"))*TWD
+            var EUR = parseInt(x.getElementsByTagName("EUR"))*TWD 
+            var JPY = parseInt(x.getElementsByTagName("JPY"))*TWD
+            var kRW = parseInt(x.getElementsByTagName("KRW"))*TWD
+            var AUD = parseInt(x.getElementsByTagName("AUD"))*TWD
+            let table = "<tr><th>美金(USD)</th><th>歐元(EUR)</th><th>日圓(JPY)</th><th>韓元(KRW)</th><th>澳幣(AUD)</th></tr>"
+            for (let i = 0; i < x.length; i++){
+                table += "<tr><td>" + USD + "</td><td>" + EUR + "</td><td>" + JPY + "</td><td>" + KRW + "</td><td>" + AUD + "</td></tr>" 
+            }
+
+            document.getElementById("rate").innerHTML = table;
+        }
+    </script>
+</body>
+</html>
