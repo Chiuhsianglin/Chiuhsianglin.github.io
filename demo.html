@@ -5,50 +5,48 @@
     <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
-    <h1>匯率轉換計算機</h1>
-    <hr>
+    <div id="title">
+        <br>
+        <h1>匯率轉換計算機</h1>
+        <br>
+        <hr>
+    </div>
+   
     <a href="https://rate.bot.com.tw/xrt" target="_blank"><b>台灣銀行牌告匯率</b></a>
     <br><br>
-    <label>請輸入新台幣</label>
-    <input id="TWD" type="text" placeholder="100" value=""/>
+    <!--(1)使用者可以在網頁中輸入台幣金額-->
+    <label><b>請輸入新台幣</b></label>
+    <input id="TWD" type="text" value=""/>
     <label>元</label>
     <br><br>
-    <button onclick="loadDoc()">執行計算</button>
-    <table id="rate"></table>
-
+    <!--(1)按下執行計算的按鈕後，網頁上會顯示轉換成美金、歐元、日圓、韓元、澳幣的金額與幣別單位；-->
+    <button onclick="Calculate()">執行計算</button>
+    <!--(4) 具備重新開始(reset)功能的按鈕，讓使用者可以進行全新一輪的計算 (5%)-->
+    <button onclick="history.go(0)">重新計算</button>
+    <br><br>
+    <table border="1" id="rate" align="center"></table>
+    
     <script>
-        function loadDoc() {
-            const xhttp = new XMLHttpRequest();
+        function Calculate() {
+            var TWD = document.getElementById('TWD').value;
+            if(TWD == null || TWD =="" || isNaN(TWD) || parseInt(TWD)<0){
+            //(5) 具備輸入檢查功能，若使用者輸入的內容非有效數值，按下執行計算的按鈕後會跳出警告，並觸發重新開始(reset)功能 (5%)
+                alert("Invalid input");
+                history.go(0);
+            }else{
+                //(1)計算結果呈現的數值至少要顯示到小數點下第 2 位 (50%)
+                TWD = parseInt(TWD);
+                //參考時間為2023.05.29 11:39
+                var USD = (30.905*TWD).toFixed(2);
+                var EUR = (33.4*TWD).toFixed(2);
+                var JPY = (0.2214*TWD).toFixed(2);
+                var KRW = (0.02532*TWD).toFixed(2);
+                var AUD = (20.38*TWD).toFixed(2);
 
-            xhttp.onload = function() {
-                myFunction(this);
+                let table = "<tr><th>美金(USD)</th><th>歐元(EUR)</th><th>日圓(JPY)</th><th>韓元(KRW)</th><th>澳幣(AUD)</th></tr>";
+                    table += "<tr><td id='USD'>" + USD + "</td><td id='EUR'>" + EUR + "</td><td id='JPY'>" + JPY + "</td><td id='KRW'>" + KRW + "</td><td id='AUD'>" + AUD + "</td></tr>"; 
+                document.getElementById("rate").innerHTML = table;
             }
-
-            xhttp.open("GET", "./rate.xml");
-            xhttp.send();
-            var TWD = document.getElementById('TWD');
-            if(TWD == null || TWD =="") {
-                msg = "Invalid input";
-                alert(msg);
-            }
-            
-        }
-
-        function myFunction() {
-            var TWD = parseInt(document.getElementById('TWD').value)
-            const xmlDoc = xml.responseXML;
-            const x = xmlDoc.getElementsByTagName("RATE");
-            var USD = parseInt(x.getElementsByTagName("USD"))*TWD;
-            var EUR = parseInt(x.getElementsByTagName("EUR"))*TWD ;
-            var JPY = parseInt(x.getElementsByTagName("JPY"))*TWD;
-            var kRW = parseInt(x.getElementsByTagName("KRW"))*TWD;
-            var AUD = parseInt(x.getElementsByTagName("AUD"))*TWD;
-            let table = "<tr><th>美金(USD)</th><th>歐元(EUR)</th><th>日圓(JPY)</th><th>韓元(KRW)</th><th>澳幣(AUD)</th></tr>"
-            for (let i = 0; i < x.length; i++){
-                table += "<tr><td>" + USD + "</td><td>" + EUR + "</td><td>" + JPY + "</td><td>" + KRW + "</td><td>" + AUD + "</td></tr>" ;
-            }
-
-            document.getElementById("rate").innerHTML = table;
         }
     </script>
 </body>
