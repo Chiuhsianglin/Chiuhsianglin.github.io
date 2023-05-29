@@ -1,0 +1,4 @@
+a:link {color:green} /*未點選過*/
+a:visited {color: rgb(250, 87, 169);}/*點選過*/
+a:hover {color: orange;}/*移動到超連結上*/
+a:active{color: blue;}/*按下時變色*/
