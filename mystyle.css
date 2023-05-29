@@ -1,3 +1,42 @@
+body{
+    /*整頁文字置中、更換背景顏色*/
+    text-align: center;
+    background-color: rgb(231, 254, 215);
+}
+
+#title {
+    /*id為title的區域更換背景顏色*/
+    background-color: beige;
+}
+
+h1{
+    /*更換文字顏色、新增文字陰影*/
+    color: rgb(13, 6, 94);
+    text-shadow: 3px 3px 6px #aa5757;
+}
+
+/*滑鼠移上去時更改背景顏色(漸層)*/
+#USD:hover{
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.79),rgba(77, 155, 219, 0.9));
+}
+#EUR:hover{
+    background-image: linear-gradient(to right, rgba(255, 95, 109, 0.79),rgba(152, 152, 247, 0.9));
+}
+#JPY:hover{
+    background-image: linear-gradient(to right, rgb(255, 255, 255),rgba(240, 84, 84, 0.9));
+}
+#AUD:hover{
+    background-image: linear-gradient(to right, rgb(102, 86, 250),rgba(250, 142, 142, 0.9));
+}
+#KRW:hover{
+    background-image: linear-gradient(to right, rgb(255, 122, 122),rgba(255, 196, 196, 0.9));
+}
+
+button:hover{
+    /*滑鼠移上button時，變圓框*/
+    border-radius: 15px;
+}
+
 a:link {color:green} /*未點選過*/
 a:visited {color: rgb(250, 87, 169);}/*點選過*/
 a:hover {color: orange;}/*移動到超連結上*/
